@@ -1,0 +1,14 @@
+[package]
+name = "viewer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+hades_core = { path = "../../crates/hades_core" }
+hades_math = { path = "../../crates/hades_math" }
+hades_scene = { path = "../../crates/hades_scene" }
+hades_platform = { path = "../../crates/hades_platform" }
+log.workspace = true
+env_logger.workspace = true
+winit.workspace = true
+glam.workspace = true

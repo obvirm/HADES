@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use winit::window::Window;
-use crate::memory::TripleBuffer;
-use crate::scene::SceneSoA;
+use hades_gpu::TripleBuffer;
+use hades_scene::SceneSoA;
 
 const MAX_PRIMITIVES: u64 = 10000;
 
@@ -110,13 +110,13 @@ impl<'a> Renderer<'a> {
         });
 
         let shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
-            label: Some("Shader"),
-            source: wgpu::ShaderSource::Wgsl(include_str!("shader.wgsl").into()),
+            label: Some("SDF Shader"),
+            source: wgpu::ShaderSource::Wgsl(include_str!("../../../assets/shaders/shader.wgsl").into()),
         });
 
         let compute_shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
             label: Some("Compute Shader"),
-            source: wgpu::ShaderSource::Wgsl(include_str!("binning.wgsl").into()),
+            source: wgpu::ShaderSource::Wgsl(include_str!("../../../assets/shaders/binning.wgsl").into()),
         });
 
         let compute_bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {

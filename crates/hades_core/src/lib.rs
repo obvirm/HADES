@@ -7,19 +7,16 @@ use winit::{
 };
 use std::sync::Arc;
 
-mod memory;
-mod scene;
-mod text;
-mod graph;
-mod renderer;
-use renderer::Renderer;
+use hades_scene::SceneSoA;
+use hades_renderer::{graph::RenderGraph, renderer::Renderer};
+use hades_text::TextSystem;
 
 struct HadesApp<'a> {
     window: Option<Arc<Window>>,
     renderer: Option<Renderer<'a>>,
-    graph: Option<graph::RenderGraph>,
-    scene: scene::SceneSoA,
-    text_system: Option<text::TextSystem>,
+    graph: Option<RenderGraph>,
+    scene: SceneSoA,
+    text_system: Option<TextSystem>,
 }
 
 impl<'a> Default for HadesApp<'a> {
@@ -28,7 +25,7 @@ impl<'a> Default for HadesApp<'a> {
             window: None,
             renderer: None,
             graph: None,
-            scene: scene::SceneSoA::new(),
+            scene: SceneSoA::new(),
             text_system: None,
         }
     }
@@ -47,16 +44,16 @@ impl<'a> ApplicationHandler for HadesApp<'a> {
             let renderer = pollster::block_on(Renderer::new(window.clone()));
             self.renderer = Some(renderer);
 
-            let mut graph = graph::RenderGraph::new();
-            graph.add_pass(Box::new(renderer::ComputeBinningPass));
-            graph.add_pass(Box::new(renderer::SdfEvaluationPass));
+            let mut graph = RenderGraph::new();
+            graph.add_pass(Box::new(hades_renderer::renderer::ComputeBinningPass));
+            graph.add_pass(Box::new(hades_renderer::renderer::SdfEvaluationPass));
             self.graph = Some(graph);
 
             // Load a system font and leak it for 'static lifetime
             let font_bytes = std::fs::read("C:\\Windows\\Fonts\\arial.ttf").unwrap_or_else(|_| vec![]);
             if !font_bytes.is_empty() {
                 let leaked_font: &'static [u8] = Box::leak(font_bytes.into_boxed_slice());
-                self.text_system = Some(text::TextSystem::new(leaked_font));
+                self.text_system = Some(TextSystem::new(leaked_font));
             }
         }
     }
@@ -77,7 +74,7 @@ impl<'a> ApplicationHandler for HadesApp<'a> {
                     self.scene.clear();
                     
                     self.scene.push_rect(
-                        &scene::Rect {
+                        &hades_scene::Rect {
                             position: glam::Vec2::new(50.0, 50.0),
                             size: glam::Vec2::new(100.0, 100.0),
                         },
@@ -85,7 +82,7 @@ impl<'a> ApplicationHandler for HadesApp<'a> {
                     );
 
                     self.scene.push_rounded_rect(
-                        &scene::RoundedRect {
+                        &hades_scene::RoundedRect {
                             position: glam::Vec2::new(100.0, 100.0),
                             size: glam::Vec2::new(150.0, 80.0),
                             radius: 20.0,
@@ -115,8 +112,7 @@ impl<'a> ApplicationHandler for HadesApp<'a> {
     }
 }
 
-fn main() {
-    env_logger::init();
+pub fn run() {
     let event_loop = EventLoop::new().unwrap();
     event_loop.set_control_flow(ControlFlow::Poll);
     

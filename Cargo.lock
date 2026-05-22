@@ -3,22 +3,6 @@
 version = 4
 
 [[package]]
-name = "HADES"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "env_logger",
- "etagere",
- "fontdue",
- "glam",
- "log",
- "pollster",
- "rustybuzz",
- "wgpu",
- "winit",
-]
-
-[[package]]
 name = "ab_glyph"
 version = "0.2.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -692,6 +676,82 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fdf242682df893b86f33a73828fb09ca4b2d3bb6cc95249707fc684d27484b91"
 dependencies = [
  "bitflags 2.11.1",
+]
+
+[[package]]
+name = "hades_core"
+version = "0.1.0"
+dependencies = [
+ "glam",
+ "hades_gpu",
+ "hades_math",
+ "hades_platform",
+ "hades_renderer",
+ "hades_scene",
+ "hades_text",
+ "log",
+ "pollster",
+ "wgpu",
+ "winit",
+]
+
+[[package]]
+name = "hades_gpu"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "hades_math",
+ "wgpu",
+]
+
+[[package]]
+name = "hades_math"
+version = "0.1.0"
+dependencies = [
+ "glam",
+]
+
+[[package]]
+name = "hades_platform"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "wgpu",
+ "winit",
+]
+
+[[package]]
+name = "hades_renderer"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "glam",
+ "hades_gpu",
+ "hades_math",
+ "hades_scene",
+ "hades_text",
+ "wgpu",
+ "winit",
+]
+
+[[package]]
+name = "hades_scene"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "glam",
+ "hades_math",
+]
+
+[[package]]
+name = "hades_text"
+version = "0.1.0"
+dependencies = [
+ "etagere",
+ "fontdue",
+ "glam",
+ "hades_math",
+ "rustybuzz",
 ]
 
 [[package]]
@@ -2026,6 +2086,20 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "viewer"
+version = "0.1.0"
+dependencies = [
+ "env_logger",
+ "glam",
+ "hades_core",
+ "hades_math",
+ "hades_platform",
+ "hades_scene",
+ "log",
+ "winit",
+]
 
 [[package]]
 name = "walkdir"

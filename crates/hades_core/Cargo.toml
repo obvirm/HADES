@@ -1,0 +1,17 @@
+[package]
+name = "hades_core"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+hades_math = { path = "../hades_math" }
+hades_scene = { path = "../hades_scene" }
+hades_renderer = { path = "../hades_renderer" }
+hades_gpu = { path = "../hades_gpu" }
+hades_platform = { path = "../hades_platform" }
+hades_text = { path = "../hades_text" }
+winit.workspace = true
+wgpu.workspace = true
+log.workspace = true
+pollster.workspace = true
+glam.workspace = true

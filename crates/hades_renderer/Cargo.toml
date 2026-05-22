@@ -1,0 +1,14 @@
+[package]
+name = "hades_renderer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+hades_math = { path = "../hades_math" }
+hades_scene = { path = "../hades_scene" }
+hades_gpu = { path = "../hades_gpu" }
+hades_text = { path = "../hades_text" }
+wgpu.workspace = true
+bytemuck.workspace = true
+winit.workspace = true
+glam.workspace = true

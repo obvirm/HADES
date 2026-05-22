@@ -1,5 +1,5 @@
 use crate::renderer::Renderer;
-use crate::scene::SceneSoA;
+use hades_scene::SceneSoA;
 
 pub trait RenderPass {
     fn name(&self) -> &str;

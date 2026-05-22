@@ -1,0 +1,11 @@
+[package]
+name = "hades_text"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+hades_math = { path = "../hades_math" }
+rustybuzz.workspace = true
+fontdue.workspace = true
+etagere.workspace = true
+glam.workspace = true
